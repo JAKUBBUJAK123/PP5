@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Document</title>
+</head>
+<body>
+    <form class="row g-3 p-3" id="form" onsubmit="handleSubmit(event)">
+        <div class="text-size-3">Formularz</div>
+        <div>
+          <label for="inputPassword1" class="visually-hidden">Company name</label>
+          <input type="text" class="form-control" id="CompanyName" placeholder="Company name" required="true">
+        </div>
+        <div>
+            <label for="inputPassword2" class="visually-hidden">NIP</label>
+            <input type="text" class="form-control" id="NIP" placeholder="NIP" required="true">
+          </div>
+          <div>
+            <label for="inputPassword3" class="visually-hidden">City</label>
+            <input type="text" class="form-control" id="City" placeholder="City" required="true">
+          </div>
+          <div>
+            <label for="inputPassword4" class="visually-hidden">Street</label>
+            <input type="text" class="form-control" id="Street" placeholder="Street" required="true">
+          </div>
+          <div>
+            <label for="inputPassword5" class="visually-hidden">House Nr</label>
+            <input type="text" class="form-control" id="HouseNr" placeholder="House Nr" required="true">
+          </div>
+          <div>
+            <label for="inputPassword6" class="visually-hidden">Flat nr</label>
+            <input type="text" class="form-control" id="FlatNr" placeholder="Flat nr" required="true">
+          </div>
+          <div>
+            <label for="inputPassword7" class="visually-hidden">Postal Code</label>
+            <input type="text" class="form-control" id="PostalCode" placeholder="Postal Code" required="true">
+          </div>
+          <div class="form-floating">
+            <textarea class="form-control" placeholder="comments" id="comments" required="false"></textarea>
+            <label for="floatingTextarea">Comments</label>
+          </div>
+          <div class="form-floating">
+            <select class="form-select" id="Select" aria-label="Floating label select example" required="true">
+              <option selected>Open this select menu</option>
+              <option value="1">It</option>
+              <option value="2">Economy</option>
+              <option value="3">Match</option>
+            </select>
+            <label for="floatingSelect">Branch</label>
+          </div>
+          <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+            <input type="checkbox" id="check" autocomplete="off">
+            <label for="btncheck1"> Active?</label></div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">confirm</button>
+              </div>
+            <div class="col-auto">
+            <button type="button" class="btn btn-primary mb-3" onclick="edit()">edit</button>
+          </div>
+      </form>
+
+      <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            let formData = {
+            cn : document.getElementById('CompanyName').value,
+            nip : document.getElementById('NIP').value,
+            City : document.getElementById('City').value,
+            Street : document.getElementById('Street').value,
+            HouseNr : document.getElementById('HouseNr').value,
+            FlatNr : document.getElementById('FlatNr').value,
+            PostalCode : document.getElementById('PostalCode').value,
+            floatingTextarea : document.getElementById('comments').value,
+            floatingSelect : document.getElementById('check').checked
+            };  
+            console.log(formData) 
+        }
+
+        function edit() {
+          document.getElementById('NIP').value = '696969';
+          document.getElementById('CompanyName').value = 'L10'; 
+          document.getElementById('City').value = "Brzesko";
+          document.getElementById('Street').value = "Wiejska";
+          document.getElementById('comments').value = "Hello im giga chad on twitch";
+          document.getElementById('PostalCode').value = "32-800";
+          document.getElementById('HouseNr').value = '15E'
+
+
+        }
+        
+
+        
+      </script>
+</body>
+</html>
