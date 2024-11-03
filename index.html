@@ -8,40 +8,56 @@
     <title>Document</title>
 </head>
 <body>
-    <form class="row g-3 p-3" id="form" onsubmit="handleSubmit(event)">
+    <div id="customer-list">
+      <ul id="customer-data">Lista klientów
+        <li id="c">Jan Nowak</li>
+      </ul>
+      <button class="btn-primary" type="button" onclick="showForm()">Add new customer</button>
+    </div>
+
+    <form class="row g-3 p-3" id="form" onsubmit="handleSubmit(event)" style="display: none;">
         <div class="text-size-3">Formularz</div>
+
         <div>
           <label for="inputPassword1" class="visually-hidden">Company name</label>
           <input type="text" class="form-control" id="CompanyName" placeholder="Company name" required="true">
         </div>
+
         <div>
             <label for="inputPassword2" class="visually-hidden">NIP</label>
             <input type="text" class="form-control" id="NIP" placeholder="NIP" required="true">
           </div>
+
           <div>
             <label for="inputPassword3" class="visually-hidden">City</label>
             <input type="text" class="form-control" id="City" placeholder="City" required="true">
           </div>
+
           <div>
             <label for="inputPassword4" class="visually-hidden">Street</label>
             <input type="text" class="form-control" id="Street" placeholder="Street" required="true">
           </div>
+
           <div>
             <label for="inputPassword5" class="visually-hidden">House Nr</label>
             <input type="text" class="form-control" id="HouseNr" placeholder="House Nr" required="true">
           </div>
+
           <div>
             <label for="inputPassword6" class="visually-hidden">Flat nr</label>
             <input type="text" class="form-control" id="FlatNr" placeholder="Flat nr" required="true">
           </div>
+
           <div>
             <label for="inputPassword7" class="visually-hidden">Postal Code</label>
             <input type="text" class="form-control" id="PostalCode" placeholder="Postal Code" required="true">
           </div>
+
           <div class="form-floating">
             <textarea class="form-control" placeholder="comments" id="comments" required="false"></textarea>
             <label for="floatingTextarea">Comments</label>
           </div>
+
           <div class="form-floating">
             <select class="form-select" id="Select" aria-label="Floating label select example" required="true">
               <option selected>Open this select menu</option>
@@ -51,6 +67,7 @@
             </select>
             <label for="floatingSelect">Branch</label>
           </div>
+          
           <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
             <input type="checkbox" id="check" autocomplete="off">
             <label for="btncheck1"> Active?</label></div>
@@ -63,9 +80,38 @@
       </form>
 
       <script>
+        
+        let editingCustomerId = null;
+
+        function showForm(){
+          document.getElementById('form').style.display = 'block';
+          document.getElementById('customer-list').style.display = 'none';
+          document.getElementById('form').reset();
+          editingCustomerId = null;
+        }
+
+        function showList(){
+          console.log(customer_list)
+          document.getElementById('customer-list').style.display = 'block';
+          document.getElementById('form').style.display = 'none'; 
+          updateCustomerList();         
+        }
+
+        function updateCustomerList() {
+          let ul = document.getElementById('customer-data')
+          ul.innerHTML = "Lista Klientów";
+          customer_list.forEach(customer => {
+            ul.innerHTML += `<li>${customer.cn} - ${customer.id} <button class="btn btn-primary" onclick="editCustomer(${customer.id})">Edit</button></li>`;
+          });
+        }
+
+        var customer_list =[];
+
+
         function handleSubmit(event) {
             event.preventDefault();
             let formData = {
+            id: editingCustomerId !== null ? editingCustomerId : Math.floor(Math.random() * 10000),
             cn : document.getElementById('CompanyName').value,
             nip : document.getElementById('NIP').value,
             City : document.getElementById('City').value,
@@ -76,8 +122,19 @@
             floatingTextarea : document.getElementById('comments').value,
             floatingSelect : document.getElementById('check').checked
             };  
-            console.log(formData) 
+            console.log(editingCustomerId)
+            if (editingCustomerId) {
+              const index = customer_list.findIndex(customer => customer.id === editingCustomerId);
+              console.log(index)
+              customer_list[index] = formData;
+            } else if (editingCustomerId == null){
+              customer_list.push(formData);
+            }
+            
+            showList()
         }
+
+        
 
         function edit() {
           document.getElementById('NIP').value = '696969';
@@ -86,13 +143,49 @@
           document.getElementById('Street').value = "Wiejska";
           document.getElementById('comments').value = "Hello im giga chad on twitch";
           document.getElementById('PostalCode').value = "32-800";
-          document.getElementById('HouseNr').value = '15E'
+          document.getElementById('HouseNr').value = '15E';
+          document.getElementById('FlatNr').value = '69'
 
+          document.getElementById('CompanyName').disabled = true;
+          document.getElementById('NIP').disabled = true;
+          document.getElementById('CompanyName').disable = true;
+          document.getElementById('City').disabled = true;
+          document.getElementById('Street').disabled = true;
+          document.getElementById('comments').disabled = true;
+          document.getElementById('PostalCode').disabled = true;
+          document.getElementById('HouseNr').disabled = true;
+          document.getElementById('FlatNr').disabled = true;
 
         }
-        
+
+        function editCustomer(id) {
+          let editingCustomer = id;
+          const customer = customer_list.find(customer => customer.id === id);
+          console.log(customer.id)
+          if (customer){
+            document.getElementById('CompanyName').value = customer.cn;
+            document.getElementById('NIP').value = customer.nip;
+            document.getElementById('City').value = customer.City;
+            document.getElementById('Street').value = customer.Street;
+            document.getElementById('HouseNr').value = customer.HouseNr;
+            document.getElementById('FlatNr').value = customer.FlatNr;
+            document.getElementById('PostalCode').value = customer.PostalCode;
+            document.getElementById('comments').value = customer.comments;
+            document.getElementById('Select').value = customer.branch;
+            document.getElementById('check').checked = customer.active;
+
+            showForm();
+          }
+          
+        }
+
+        function cancelEdit() {
+        editingCustomerId = null;
+        showList();
+}
 
         
+
       </script>
 </body>
 </html>
