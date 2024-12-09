@@ -1,14 +1,16 @@
-<form class="row g-3 p-3" id="form" onsubmit="handleSubmit(event)">
+test
+{{customer|json}}
+<form class="row g-3 p-3" id="form" (ngSubmit)="handleSubmit()">
     <div class="text-size-3">Formularz</div>
 
     <div>
       <label for="inputPassword1" class="visually-hidden">Company name</label>
-      <input type="text" class="form-control" id="CompanyName" placeholder="Company name" required="true">
+      <input type="text" class="form-control" name="name" [(ngModel)]="customer.name" id="CompanyName" placeholder="Company name" required="true">
     </div>
 
     <div>
         <label for="inputPassword2" class="visually-hidden">NIP</label>
-        <input type="text" class="form-control" id="NIP" placeholder="NIP" required="true">
+        <input type="text" class="form-control" id="NIP" name="nip" [(ngModel)]="customer.nip" placeholder="NIP" required="true">
       </div>
 
       <div>

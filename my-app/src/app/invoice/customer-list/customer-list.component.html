@@ -1,1 +1,4 @@
-<p>customer-list works!</p>
+<div *ngFor = 'let customer of customerList'>
+    {{customer.name}}
+    <app-customer-list-element></app-customer-list-element>
+</div>
