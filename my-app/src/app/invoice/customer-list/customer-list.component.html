@@ -1,4 +1,8 @@
-<div *ngFor = 'let customer of customerList'>
-    {{customer.name}}
-    <app-customer-list-element></app-customer-list-element>
+<div>
+    <app-customer-list-element 
+        *ngFor="let customer of customerList" 
+        [customer]="customer"
+        (deleteCustomerEvent)="deleteCustomer($event)"
+     ></app-customer-list-element>
+    <button class="btn btn-primary mb-3" (click)="redirect()">Dodaj</button>
 </div>

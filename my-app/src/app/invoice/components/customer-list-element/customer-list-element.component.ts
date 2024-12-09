@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { Customer } from '../../models/Customer';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-customer-list-element',
@@ -11,6 +12,12 @@ export class CustomerListElementComponent {
 
   @Input()
   customer : Customer = new Customer();
-  
 
+  @Output()  
+  deleteCustomerEvent = new EventEmitter<Customer>();
+
+  deleteCustomer(){
+    console.log('kasuje cutomera')
+    this.deleteCustomerEvent.emit(this.customer)
+  }
 }

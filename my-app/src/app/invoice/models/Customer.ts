@@ -8,8 +8,7 @@ export class Customer{
     zipCode:string = "";
     comments:string = "";
     industry:string = "";
-    active:boolean = false
-
+    active:boolean= false
     getAddress():string{
         return `${this.city} ${this.zipCode} ${this.street} ${this.houseNumber}`;
     }
